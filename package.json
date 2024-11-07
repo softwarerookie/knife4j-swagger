@@ -1,0 +1,37 @@
+{
+  "name": "knife4j-swagger",
+  "version": "1.0.0",
+  "description": "",
+  "author":"Mr·Ding",
+  "keywords": [],
+  "license": "ISC",
+  "type": "commonjs",
+  "scripts": {
+    "start": "nodemon src/main.js",
+    "build": "rollup --config",
+    "package": "pkg . --output ./dist/knife4j-swagger.exe --debug"
+  },
+  "bin":"dist/main.js",
+  "pkg": {  
+    "scripts": [ "*.js" ],  
+    "assets": ["dist/public"], 
+    "targets": [ "node16-win-x64" ],  
+    "outputPath": "./dist"  
+  }  ,
+  "dependencies": {
+    "express": "^4.21.1",
+    "http-proxy-middleware": "^3.0.3",
+    "node-knife4j": "^1.0.6"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-url": "^6.1.0",
+    "nodemon": "^2.0.16",
+    "pkg": "5.3.2",
+    "rollup": "^4.24.2",
+    "rollup-plugin-copy": "^3.5.0"
+  }
+}
