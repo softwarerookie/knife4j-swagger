@@ -2,22 +2,29 @@
   "name": "knife4j-swagger",
   "version": "1.0.0",
   "description": "",
-  "author":"Mr·Ding",
+  "author": "Mr·Ding",
   "keywords": [],
   "license": "ISC",
   "type": "commonjs",
   "scripts": {
     "start": "nodemon src/main.js",
     "build": "rollup --config",
-    "package": "pkg . --output ./dist/knife4j-swagger.exe --debug"
+    "package": "pkg . --output ./dist/knife4j-swagger.exe --compress Brotli --debug",
+    "compress": "upx --best ./dist/knife4j-swagger.exe -o compress.exe"
   },
-  "bin":"dist/main.js",
-  "pkg": {  
-    "scripts": [ "*.js" ],  
-    "assets": ["dist/public"], 
-    "targets": [ "node16-win-x64" ],  
-    "outputPath": "./dist"  
-  }  ,
+  "bin": "dist/main.js",
+  "pkg": {
+    "scripts": [
+      "*.js"
+    ],
+    "assets": [
+      "dist/public"
+    ],
+    "targets": [
+      "node14-win-x64"
+    ],
+    "outputPath": "./dist"
+  },
   "dependencies": {
     "express": "^4.21.1",
     "http-proxy-middleware": "^3.0.3",
@@ -32,6 +39,7 @@
     "nodemon": "^2.0.16",
     "pkg": "5.3.2",
     "rollup": "^4.24.2",
-    "rollup-plugin-copy": "^3.5.0"
+    "rollup-plugin-copy": "^3.5.0",
+    "upx": "^1.0.6"
   }
 }
