@@ -26,17 +26,21 @@ app.listen(2000, () => {
 const loadPage = (req, res) => {
   if (req.method === "GET") {
     if (req.query.host) {
-      options.host = req.query.host;
-      options.target = `http://${req.query.host}`;
-      const filePath = path.join(__dirname, "public", "doc.html"); // HTML 文件的路径
-      res.setHeader("Content-Type", "text/html");
-      fs.readFile(filePath, "utf8", (err, data) => {
-        if (err) {
-          console.error("Error reading HTML file:", err);
-          return res.status(500).send("Internal Server Error");
-        }
-        res.send(data);
-      });
+      try {
+        options.host = req.query.host;
+        options.target = `http://${req.query.host}`;
+        const filePath = path.join(__dirname, "public", "doc.html"); // HTML 文件的路径
+        res.setHeader("Content-Type", "text/html");
+        fs.readFile(filePath, "utf8", (err, data) => {
+          if (err) {
+            console.error("Error reading HTML file:", err);
+            return res.status(500).send("Internal Server Error");
+          }
+          res.send(data);
+        });
+      } catch (e) {
+        console.error(e);
+      }
     } else {
       res.send("<html>请指定host参数!<br/>格式为：?host=ip:port</html>");
     }
@@ -46,7 +50,7 @@ const loadPage = (req, res) => {
 const getJSON = (req, response) => {
   if (req.method === "GET") {
     const url = `http://${options.host}/v3/api-docs`;
-    http.get(url, (res) => {
+    const request = http.get(url, (res) => {
       let data = "";
       // 设置编码，防止中文乱码
       res.setEncoding("utf8");
@@ -65,6 +69,18 @@ const getJSON = (req, response) => {
         }
       });
     });
+
+    request.on("error", (e) => {
+      console.log("请求目标主机出错:", e);
+      response.status(500).send("Error");
+    });
+
+    request.setTimeout(30000, () => {
+      console.error("请求目标主机超时！");
+      response.status(504).send("504 Gateway Timeout");
+    });
+
+    request.end();
   }
 };
 
