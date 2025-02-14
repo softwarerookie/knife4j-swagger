@@ -43,6 +43,9 @@ devDependencies:
   rollup-plugin-copy:
     specifier: ^3.5.0
     version: 3.5.0
+  upx:
+    specifier: ^1.0.6
+    version: 1.0.6
 
 packages:
 
@@ -2509,6 +2512,14 @@ packages:
       semver: 7.6.3
       semver-diff: 3.1.1
       xdg-basedir: 4.0.0
+    dev: true
+
+  /upx@1.0.6:
+    resolution: {integrity: sha512-LRlldlzT/RNXQl442PyQ0imozDTkhjsKnJc6ugchhy+RP+QXICWk5kXyfnhSIVtfz41fZOSNyL2BLup2VSriqA==}
+    dependencies:
+      debug: 4.3.7
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /url-parse-lax@3.0.0:
